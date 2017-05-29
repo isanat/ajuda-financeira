@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+ 
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+Cadastro - <?php echo strtoupper($dados['cliente']['usuario'])?>
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<!-- BEGIN STYLE CODES -->
+    
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/twitter-bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/social-jquery-ui-1.10.0.custom.css" rel="stylesheet">
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/social.css" rel="stylesheet">
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/font-awesome.css" rel="stylesheet">
+    
+    
+    
+
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="../../../core/View/assets/css/social-jquery.ui.1.10.0.ie.css"/>
+    <![endif]-->
+
+    <!-- BEGIN STYLE CODE FOR THE CURRENT PAGE -->
+        <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/plugins/fuelux.css" rel="stylesheet">
+    <!-- END STYLE CODE FOR THE CURRENT PAGE -->
+
+    
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.uipro/style.css" rel="stylesheet">
+    
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/themes/social.theme-blue.css" rel="stylesheet" id="theme">
+    <link href="http://<?php echo $dados['host'];?>/core/View/assets/css/twitter-bootstrap/bootstrap-responsive.css" rel="stylesheet">
+
+
+    <!-- BEGIN STYLE CODE FOR THE CURRENT PAGE -->
+        <!-- END STYLE CODE FOR THE CURRENT PAGE -->
+
+        <style>
+      .wraper #main{
+        margin-top: 40px;
+      }
+    </style>
+    <!-- END STYLE CODES -->
+    
+    <script> 
+function bottomReached(objectID) { 
+	var object = document.getElementById(objectID); 
+	var bottomReached = false; 
+	var actualLocation = object.scrollTop + object.offsetHeight; 
+	var scrollHeight = object.scrollHeight; 
+	if (actualLocation > scrollHeight)
+	{ 
+		$("#form-validation").submit(); 
+	}else{
+			alert('Baixe a barra de rolagem até o fim')
+	}
+	
+	 } 
+</script>
+
+</head>
+<body>
+ 
+
+ 
+<?php $dominio = str_replace('backoffice','www',$dados['host']);?>
+    
+    
+		<div class="row-fluid">
+        <div class="span12">
+            <h3 class="page-title">
+
+<img src="http://<?php echo $dados['host'];?>/module/<?php echo $dados['cliente']['usuario']?>/View/img/logo.png" class="img-rounded" width="150">
+            </h3>
+            <!-- BEGIN BREADCRUMBS -->
+		<ul class="breadcrumb">
+		    <li>
+		        <i class="icon-user"></i>
+		        <a href="#">Você está sendo indicado por <?php echo strtoupper($dados['param']['usuario']); //echo '<pre>'; print_r($dados);?> </a>                            
+		</ul>
+<!-- END BREADCRUMBS -->
+        </div>
+    </div>
+
+<div class="body" id="validationwizard">
+        <!-- BEGIN TABS CONTROLS WIZARD -->
+        
+        <?php if(isset($dados['model']['carrinho'])){?>
+        <div class="navbar form-wizard">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="tab" href="#tab-validation1"><i class="icon-credit-card"></i> Checkout</a></li>
+                </ul>
+         </div>
+          </div>
+        </div>
+        
+        
+
+                <!-- BEGIN TAB1 CONTAINER -->
+                <div id="tab-validation1" class="tab-pane active">
+                    <h3>Checkout</h3>
+                    
+		<div class="social-box">
+          <div class="header">
+              <h4>Parabéns, <?php echo $dados['model']['carrinho']['usu_nome']?> !</h4>
+              <?php if(isset($dados['model']['erro'])){?>
+              <div id="msg"><div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button><strong>Atenção!</strong> <span id="msg_erro">Erro ao Pagar com Voucher, verifique com atenção e tente novamente!</span></div></div>
+              <?php }else{?>
+              <div id="msg"></div>
+              <?php }?>
+          </div>
+          <div class="body">
+			<form action=""  method="POST">
+	            <table class="table table-striped">
+	              <thead>
+	                <tr>
+	                  <th>Plano do Cadastrar</th>
+	                  <th>Seu Site</th>
+	                  <th>TransId</th>
+	                  <th>Valor R$</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td><?php echo $dados['model']['carrinho']['bn_nome']?></td>
+	                  <td><a href="http://www.torusbrazil.com/<?php echo $dados['model']['carrinho']['usu_usuario']?>" target="_blank">http://www.torusbrazil.com/<?php echo $dados['model']['carrinho']['usu_usuario']?></a></td>
+	                  <td><?php echo $dados['model']['carrinho']['ped_transid']?></td>
+	                  <td><?php echo number_format($dados['model']['carrinho']['ped_total'], 2, ',', '.')?></td>
+	                </tr>
+	                <tr>
+	                  <td colspan="4">
+	                  	
+	                  	<input type="hidden" name="usu_doc" id="usu_doc" value="<?php echo $dados['model']['carrinho']['usu_doc']?>">
+	                  	<input type="hidden" name="ped_id" id="ped_id" value="<?php echo $dados['model']['carrinho']['ped_id']?>">	
+	                  	<input type="hidden" name="fk_prod" id="fk_prod" value="<?php echo $dados['model']['carrinho']['bn_id']?>">                  	
+	                  	<input type="hidden" name="ped_total" id="ped_total" value="<?php echo $dados['model']['carrinho']['ped_total']?>">
+	                  
+	                  </td>
+	                </tr>
+	                <tr>
+	                  <td><span class="badge badge-info">Formas de Pagamento:</span></td>
+	                  <td>
+	                  		<label class="radio">
+	                          <input type="radio" value="boleto" class="forma" name="forma" checked >
+	                          <i class="icon-barcode"></i> Boleto 
+	                        </label>
+	                  </td>
+	                  <td>
+	                  		
+	                  </td>
+	                  <td></td>
+	                </tr>
+	                
+	                <tr id="voucher">
+	                  
+	                  <td colspan="4">
+	                  	
+	                  </td>
+	                  
+	                </tr>
+	                
+	                <tr id="boleto">
+	                  
+	                  <td colspan="4">
+	                  	<div class="controls">
+	                  		<i class="icon-barcode"></i> Gerar Boleto 
+		                  		<a href="http://www.httpag.com.br/boleto/?token=MDU0KJ72M2ZhNjczOTZjNjPjEY2ORGZjMWY4ZmI2MDY=&cli=torus&ped=<?php echo $dados['model']['carrinho']['ped_transid']?>" target="_blank">
+		                  			<img src="http://<?php echo $dados['host'];?>/core/View/img/boleto.jpg" class="img-polaroid">
+		                  		</a>
+	                  	</div>
+	                  </td>
+	                  
+	                </tr>
+	                
+	                
+	                
+	              </tbody>
+	            </table>
+            </form>
+
+          </div>
+		</div>
+                    
+                    	
+
+                </div>
+        <?php }else{?>
+        
+        <div class="navbar form-wizard">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="tab" href="#tab-validation1"><i class="icon-thumbs-up"></i> Acesso</a></li>
+                    <li><a data-toggle="tab" href="#tab-validation2"><i class="icon-user"></i> Pessoais</a></li>
+                    <li><a data-toggle="tab" href="#tab-validation3"><i class="icon-home"></i> Endereço</a></li>
+                    <li><a data-toggle="tab" href="#tab-validation4"><i class="icon-check"></i> Contrato</a></li>
+                </ul>
+         </div>
+          </div>
+        </div>
+        
+        
+        <!-- END TABS CONTROLS WIZARD -->
+        <!-- BEGIN PROGRESS BAR -->
+        <div class="progress active" id="bar2">
+          <div class="bar bar-success" style="width: 25%;"></div>
+        </div>
+        <!-- END PROGRESS BAR -->
+        <!-- BEGIN FORM WIZARD  -->
+        
+        <?php if(isset($dados['model']['erro'])){?>
+        <div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button><strong>Advertência!</strong> <span id="msg_erro"><?php echo $dados['model']['erro'];?></span></div>
+        <?php }?>
+        
+        <div id="msg"></div>
+        <form class="form-horizontal" id="form-validation" action="" method="POST" novalidate>
+        <input type="hidden" name="sessao" id="sessao" value="<?php echo session_id();?>" />
+            <div class="tab-content offset2">
+                <!-- BEGIN TAB1 CONTAINER -->
+                <div id="tab-validation1" class="tab-pane active">
+                    <h3>Acesso ao Sistema</h3>
+                    
+                    <!-- Text input-->
+                    <div class="control-group">
+                      <label class="control-label">Plano</label>
+                      <div class="controls">
+                        <?php
+					          $plano = $dados['param']['plano'];
+										  
+							  if($plano == 1){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='1 Centro de Negócio' /><input type='hidden' name='country' id='plano' value='1' />";				  
+							  }elseif($plano == 2){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='3 Centros de Negócio' /><input type='hidden' name='country' id='plano' value='2' />";						  
+							  }elseif($plano == 9){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='1 centro +  Árvore + Ativação' /><input type='hidden' name='country' id='plano' value='9' />";						  
+							  }elseif($plano == 10){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='3 centros +  Árvore + Ativação' /><input type='hidden' name='country' id='plano' value='10' />";						  
+							  }elseif($plano == 11){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='1 centro +  Kit de Perfume + Ativação' /><input type='hidden' name='country' id='plano' value='11' />";						  
+							  }elseif($plano == 12){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='3 centros +  Kit de Perfume + Ativação' /><input type='hidden' name='country' id='plano' value='12' />";						  
+							  }elseif($plano == 14){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='1 centro +  2 Perfumes + 4 Livros + Ativação' /><input type='hidden' name='country' id='plano' value='14' />";						
+							  }elseif($plano == 15){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='3 centros +  2 Perfumes + 4 Livros + Ativação' /><input type='hidden' name='country' id='plano' value='15' />";						
+							  }elseif($plano == 16){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='1 centro +  50 Perfumes + Ativação' /><input type='hidden' name='country' id='plano' value='16' />";						
+							  }elseif($plano == 17){
+							     echo "<input type='text' class='plano' required name='plano' disabled='disabled' value='3 centros +  50 Perfumes + Ativação' /><input type='hidden' name='country' id='plano' value='17' />";						
+							  }else{?>
+							  
+							  
+		                        <select class="input-xlarge" name="country" id="fk_bonus">
+						          <option value="">Escolha</option>
+						          <?php foreach ($dados['model']['produtos'] as $produtos){?>
+						          <option value="<?php echo $produtos['fk_bonus']?>"><?php echo $produtos['pro_nome']?></option>
+						          <?php }?>
+						        </select>
+		                        <p class="help-block"></p>
+		                      
+						      <?php }?>
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+
+                    
+              
+              <?php
+				  //$plano = $dados['param']['plano'];
+				  
+				  if($plano == 1 || $plano == 9 || $plano == 11 || $plano == 14 || $plano == 16){
+				  	?>
+				  
+				   <!-- Text input-->
+                    <div class="control-group">
+                      <label class="control-label">Nome de Usuário</label>
+                      <div class="controls">
+                        
+                        www.torusbrazil.com/<input type="text" required placeholder="Nome de Usuário" value="" name="usu_usuario1" id="usu_usuario1" class="usuario">
+                        <p class="help-block">Ex: www.torusbrazil.com/<strong style="color:red">usuário</strong></p>
+                        <p class="help-block"></p>
+                      </div>
+                    </div>	
+				  
+				 <?php  } elseif($plano == 2 || $plano == 10 || $plano == 12 || $plano == 15 || $plano == 17){ ?>      
+                    
+                    <!-- Text input-->
+                    <div class="control-group">
+                      <label class="control-label">Nome de Usuário</label>
+                      <div class="controls">
+                        
+               www.torusbrazil.com/<input type="text" required placeholder="Nome de Usuário" value="" name="usu_usuario1" id="usuario1" class="usuario">
+                      </div>
+                    </div>	
+                    
+                    <!-- Text input-->
+                    <div class="control-group">
+                      <label class="control-label">Nome de Usuário</label>
+                      <div class="controls">
+                        
+             www.torusbrazil.com/<input type="text" required  placeholder="Nome de Usuário" value="" name="usu_usuario2" id="usuario2" class="usuario">
+                      </div>
+                    </div>	
+                    
+                    <!-- Text input-->
+                    <div class="control-group">
+                      <label class="control-label">Nome de Usuário</label>
+                      <div class="controls">
+                        
+             www.torusbrazil.com/<input type="text" required  placeholder="Nome de Usuário" value="" name="usu_usuario3" id="usuario3" class="usuario">
+                        <p class="help-block">Ex: www.torusbrazil.com/<strong style="color:red">usuário</strong></p>
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                 <?php  }?>
+                    
+                    
+
+                    <div class="control-group">
+                      <label class="control-label">Senha</label>
+                      <div class="controls">
+                        <input type="password" class="input-xlarge" required placeholder="Informe sua Senha" name="password" id="password">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label class="control-label">Confirmar Senha</label>
+                      <div class="controls">
+                        <input type="password" class="input-xlarge" required placeholder="Repita sua Senha" name="re_password"  id="re_password">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    
+                    <div class="control-group">
+                      <label class="control-label">Segurança</label>
+                      <div class="controls">
+                        <input type="password" class="input-xlarge" required placeholder="Informe sua Senha de Segurança" name="password_s" id="password_s">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label class="control-label">Confirmar Segurança</label>
+                      <div class="controls">
+                        <input type="password" class="input-xlarge" required placeholder="Repita sua Senha de Segurança" name="re_password_s"  id="re_password_s">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    	
+
+                </div>
+                <!-- END TAB1 CONTAINER -->
+                <!-- BEGIN TAB2 CONTAINER -->
+                <div id="tab-validation2" class="tab-pane">
+                    <h3>Informe seus dados Pessoais</h3>
+
+                    <!-- Text input-->
+                    <div class="control-group">
+                      <label class="control-label">Nome</label>
+                      <div class="controls">
+                        <input type="text" class="input-xlarge" placeholder="Seu Nome"  required="" name="fullname" id="fullname">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label class="control-label">Tipo Pessoa</label>
+                      <div class="controls">
+                        <label class="pessoa">
+                          <input type="radio" value="f" class="tipo_pessoa" id="pf" name="pessoa" checked="checked">
+                          Pessoa Física
+                        </label>
+                        <label class="radio">
+                          <input type="radio" value="j" class="tipo_pessoa" id="pj" name="pessoa">
+                          Pessoa Jurídica
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group" id="cnpj">
+                      <label class="control-label">CNPJ</label>
+                      <div class="controls">
+                        <input type="text" class="input-xlarge" placeholder="Seu CNPJ" name="pj_cnpj" id="pj_cnpj">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label class="control-label">CPF</label>
+                      <div class="controls">
+                        <input type="text" class="input-xlarge" required placeholder="Seu CPF" name="cpf" id="cpf">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label class="control-label">Data de Nascimento</label>
+                      <div class="controls">
+                        <input type="text" class="input-xlarge" required placeholder="Data de Nascimento" name="datanasc" id="datanasc">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label">Sexo</label>
+                      <div class="controls">
+                        <label class="radio">
+                          <input type="radio" value="m" name="gender" checked="checked">
+                          Masculino
+                        </label>
+                        <label class="radio">
+                          <input type="radio" value="f" name="gender">
+                          Feminino
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <legend>Seus Contatos</legend>
+                    
+                    <div class="control-group">
+                      <label class="control-label">Email</label>
+                      <div class="controls">
+                        <input type="email" class="input-xlarge" required placeholder="Informe seu Email" name="email" id="email">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group telefones">
+                      <label class="control-label">Celular*</label>
+                      <div class="controls camposfone">
+                        <input type="text" class="input-medium cel" required name="celular" >
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group telefones">
+                      <label class="control-label">Residencial</label>
+                      <div class="controls camposfone">
+                        <input type="text" class="input-medium fones" name="residencial" >
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="control-group telefones">
+                      <label class="control-label">Comercial</label>
+                      <div class="controls camposfone">
+                        <input type="text" class="input-medium fones"  name="comercial" >
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    
+
+                    
+                    
+
+                    
+                </div>
+                <!-- END TAB2 CONTAINER -->
+                <!-- BEGIN TAB3 CONTAINER -->
+                <div id="tab-validation3" class="tab-pane">
+
+                    <h3>Seu Endereço</h3>
+                      <div class="control-group">
+					      <label for="end_cep" class="control-label">CEP</label>
+					      <div class="controls">
+					        <input type="text" required class="input-small required" placeholder="CEP" value="" name="cep" id="cep">
+					
+					      </div>
+					    </div>
+					
+					    <div class="control-group">
+					      <label for="end_end" class="control-label">Endereço</label>
+					      <div class="controls">
+					        <input type="text" required class="input-xlarge required" placeholder="Endereço" value="" name="endereco" id="endereco">
+					      </div>
+					    </div>
+					
+					    <div class="control-group">
+					      <label for="end_n" class="control-label">Número</label>
+					      <div class="controls">
+					        <input type="text" required class="input-small required" placeholder="Número" value="" name="numero" id="numero">
+					      </div>
+					    </div>
+					
+					    <div class="control-group">
+					      <label for="end_comp" class="control-label">Complemento</label>
+					      <div class="controls">
+					        <input type="text" class="input-small" placeholder="Complemento" value="" name="end_comp" id="end_comp">
+					      </div>
+					    </div>
+					
+					    <div class="control-group">
+					      <label for="end_bairro" class="control-label">Bairro</label>
+					      <div class="controls">
+					        <input type="text" required class="input-xlarge required" placeholder="Bairro" value="" name="bairro" id="bairro">
+					      </div>
+					    </div>
+					
+					    <div class="control-group">
+					      <label for="end_cidade" class="control-label">Cidade</label>
+					      <div class="controls">
+					        <input type="text" required class="input-xlarge required" placeholder="Cidade" value="" name="cidade" id="cidade">
+					      </div>
+					    </div>
+					
+					    <div class="control-group">
+					      <label for="end_uf" class="control-label">UF</label>
+					      <div class="controls">
+					        <input type="text" required class="input-small required" placeholder="UF" maxlength="2" value="" name="uf" id="uf">
+					      </div>
+					    </div>	
+					    
+                </div>
+                <!-- END TAB3 CONTAINER -->
+                <!-- BEGIN TAB4 CONTAINER -->
+                <div id="tab-validation4" class="tab-pane">
+                    <h3>Contrato de Adesão</h3>
+                    <h5>Baixe a Barra de Rolagem até o final para finalizar</h5>
+                    
+                     
+
+
+						<div class="control-group">
+					      <div class="controls span8">
+					        <textarea readonly id="textarea1" rows="10" cols="100" class="input-block-level">
+					        	Política de Privacidade
+
+Esta Política de Privacidade foi elaborada visando zelar pela confidencialidade, privacidade e proteção dos dados pessoais dos visitantes, clientes e distribuidores associados a esta empresa, que utilizam este website e dos usuários de nossos sistemas, protegendo essas informações de perdas, usos impróprios, acessos não autorizados, alterações e destruição.
+
+
+Coleta e Uso das Informações
+
+Este website é aberto a qualquer pessoa que tenha interesse em conhecer as informações referentes à empresa e seu respectivo ramo de atuação. Possui áreas restritas que estão condicionadas ao cadastramento do potencial candidato, quando então serão solicitadas informações capazes de identificá-lo e possibilitar o contato com nossos serviços.
+
+Ao decidir fornecer seus dados, o candidato passa então a fazer parte da rede de relacionamento da empresa, tendo acesso ao sistema de gerenciamento de informações, declarando com isso que conhece e aceita os termos da presente Política.
+
+O website também recebe e armazena automaticamente, por meio de cookies, informações sobre as atividades do navegador, incluindo endereço IP e a página acessada. Estes registros de atividades (logs) serão utilizados apenas para fins estatísticos e de métricas dos serviços disponibilizados.
+
+O distribuidor que faz parte da rede de relacionamento da empresa, tem ciência e concorda que as informações coletadas serão utilizadas para os seguintes propósitos:
+
+(a) permitir que o distribuidor acesse suas informações no sistema de gerenciamento de informações; 
+(b) Possa realizar as atividades de gerenciamento de seus dados junto à empresa, para efeito de recebimento de bônus e demais pagamentos; 
+(c) atualização das informações de contato; 
+(d) elaborar estatísticas gerais, sem que haja identificação dos usuários; 
+(e) responder às dúvidas e solicitações do próprio usuários; e 
+(f) obedecer determinações legais ou judiciais.
+
+Também nos reservamos o direito de utilizar tais registros, de forma individualizada, em casos de investigação de ilícitos civis ou criminais, especialmente quando houver suspeita de fraude, ataques de hackers, alterações no sistema ou acesso indevido à informações protegidas e dados cadastrais de outros associados ou visitantes.
+
+
+Guarda e Responsabilidade pelas Informações Coletadas
+
+Qualquer informação fornecida pelos distribuidores será obtida e armazenada de acordo com os mais rígidos padrões de segurança e confiabilidade, adotando todos os cuidados para que tais informações sejam mantidas de maneira em sua total integridade.
+
+O acesso às informações coletadas é restrito aos colaboradores e pessoas autorizadas. Aqueles que se utilizarem indevidamente dessas informações, em violação desta Política de Privacidade, estarão sujeitos às sanções administrativas e disciplinares, sem exclusão das medidas legais cabíveis. A não ser por determinação legal ou judicial, as informações dos usuários cadastrados neste website jamais serão transferidas a terceiros ou usadas para finalidades diferentes daquelas para as quais foram coletadas.
+
+                O sistema de gerenciamento de informações presentes neste website, é exclusivo dos associados que se cadastraram, se filiaram e receberam seus logins e senhas. Não é permitido sob qualquer hipótese o acesso de terceiros ao sistema de gerenciamento de informação, tornando-se responsável por qualquer vazamento de informação, o distribuidor que ceder ou emprestar seu login e senha para terceiros.
+                
+                CONTRATO DE CREDENCIAMENTO DE EMPREENDEDOR
+GESTORA: TORUS GRUPO EMPRESARIAL LTDA – ME,
+com matriz situada na Av. das Américas, 3500 Bloco: 07; Sala 501 Barra da Tijuca – Rio de Janeiro – R.J., CEP 22.640-102, inscrita no CNPJ/MF sob o no.
+20.476.473/0001-77, através de seu representante legal conforme seu estatuto social, doravante denominada simplesmente "GESTORA".
+EMPREENDEDOR:
+Já qualificado através da ficha de inscrição preenchida no sistema eletrônico “online” do site oficial da GESTORA e que faz parte integrante deste contrato, ajustam este CONTRATO DE CREDENCIAMENTO DE EMPREENDEDOR, que se regerá pelas seguintes cláusulas:
+DO OBJETO
+Cláusula Primeira:
+Constitui objeto do presente instrumento o credenciamento do EMPREENDEDOR pela GESTORA, sem caráter de exclusividade, para as seguintes atividades:
+a)Aquisição de produtos, em seu nome próprio, para uso pessoal;
+b)Indicação de terceiros para comprarem produtos diretamente dos vendedores credenciados pela GESTORA, através da sua intermediação de vendas, mediante participação do EMPREENDEDOR no Plano de Marketing definido pela GESTORA; e
+c)Indicação de terceiros para se cadastrarem como novos EMPREENDEDORES, formando assim a sua rede de EMPREENDEDORES.
+
+DO CREDENCIAMENTO COMO EMPREENDEDOR
+Cláusula Segunda:
+Para o credenciamento como EMPREENDEDOR, o mesmo deverá:
+a)Ler e concordar com os termos desse contrato;
+b)Preencher correta e digitalmente, no Sistema Eletrônico “online” da GESTORA a Ficha de Cadastro;
+c)Efetuar o pagamento da taxa de cadastro anual, por adesão.
+Parágrafo Único:
+O EMPREENDEDOR poderá optar por dois tipos de centro de negócios:
+a)taxa de adesão no valor de R$ 100,00 (cem reais) com direito a 1 centro de negócios;
+b)taxa de adesão no valor de R$ 300,00(trezentos reais) com direito a 3 centros de negócios;
+DO PREÇO DOS PRODUTOS E PAGAMENTO DAS BONIFICAÇÕES
+Cláusula Terceira:
+Os preços dos produtos serão os vigentes na lista de preços da GESTORA, válida no momento da compra dos produtos.
+Cláusula Quarta:
+O EMPREENDEDOR
+será recompensado pela GESTORA,
+conforme o Plano de Marketing, previsto no Manual de Procedimentos Torus, vigente na data do pagamento.
+Parágrafo único:
+para pagamento da recompensa prevista na Cláusula acima,o EMPREENDEDOR deverá estar em dia com as obrigações assumidas no presente instrumento.
+DOS DIREITOS E OBRIGAÇÕES DO EMPREENDEDOR
+Cláusula Quinta:
+Constituem direitos do EMPREENDEDOR:
+a)
+Indicar novos EMPREENDEDORES que tenham interesse em se credenciar junto à GESTORA;
+b)
+Receber bonificação, conforme Plano de Marketing previsto no Manual de Procedimentos Torus, sobre as compras efetuadas através da sua indicação.
+Cláusula Sexta:
+Constituem obrigações do EMPREENDEDOR:
+a)
+Cumprir fielmente as determinações e parâmetros estabelecidos no Manual de Procedimentos Torus;
+b)
+Desenvolver as sua atividades dentro de padrões éticos aplicáveis à atividades dessa natureza;
+c)
+Zelar pela imagem da GESTORA e suas marcas, não efetuando nenhuma ação que possa comprometer a reputação da GESTORA ou quaisquer outros envolvidos;
+d)
+Não fazer declarações e nem oferecer quaisquer garantias em relação aos produtos;
+e)
+Sob nenhuma hipótese, reproduzir ou comercializar qualquer material fornecido pela GESTORA para o desenvolvimento de suas atividades, sem prévio conhecimento e autorização por escrito da GESTORA;
+f)
+O EMPREENDEDOR, caso seja pessoa física, deverá, necessariamente, ter capacidade jurídica para contratar, sendo maior de 18 (dezoito) anos ou emancipado e estar cadastrado no PIS/PASEP;
+g)
+É terminantemente proibida a venda dos produtos intermediados pela GESTORA em estabelecimentos comerciais, escritórios comerciais,feiras, lojas, quiosques, inclusive na internet, salvo com autorização expressa da própria GESTORA.
+Cláusula Sétima
+: O EMPREENDEDOR declara que:
+a)
+Atuará de forma independente e sem caráter de exclusividade no que se refere às atividades desenvolvidas nos termos deste instrumento;
+b)
+Tem total liberdade de atuação para determinar seus horários e agendar suas atividades relacionadas ao presente instrumento, sendo que a GESTORA
+não tem qualquer gerência sobre sua atuação e nem determina local para o desenvolvimento de tais atividades;
+c)
+Seguirá as regras estabelecidas no Manual de Procedimentos Torus e Código de Ética Torus, e que isso, sob nenhuma hipótese configurará subordinação à
+GESTORA, mas apenas e tão somente adesão às condições estabelecidas pelo negócio;
+d)
+É totalmente responsável pelas despesas decorrentes das atividades descritas nesse instrumento;
+e)
+Reconhece que nem ele ou qualquer terceiro indicado é empregado, representante comercial, agente, parceiro, procurador ou franqueado da GESTORA, e, portanto a ele ou a qualquer outro, não serão devidas quaisquer verbas trabalhistas em função do desenvolvimento da sua atividade.
+DA CONFIDENCIALIDADE E PROPRIEDADE INTELECTUAL
+Cláusula Oitava:
+A GESTORA
+é proprietária exclusiva de todos os direitos de propriedade intelectual relativos aos produtos, às suas propagandas e materiais impressos, sendo que neste ato a GESTORA apenas autoriza o uso dessas marcas especificamente para o desenvolvimento das atividades previstas no presente instrumento.
+Cláusula Nona:
+O EMPREENDEDOR
+não poderá utilizar-se das marcas da GESTORA em publicidade ou impressos sem a prévia autorização por escrito da mesma.
+Cláusula Décima:
+O EMPREENDEDOR
+não deverá, sem o prévio consentimento da GESTORA, usar quaisquer das marcas como parte de seu nome comercial, razão social, título de negócios ou nome de domínio na internet.
+Cláusula Décima Primeira:
+O EMPREENDEDOR
+se obriga a cumprir e fazer cumprir a confidencialidade de toda e qualquer informação a que tiver acesso por conta do presente instrumento ou resultante deste, incluindo, porém não se limitando a:
+a)Informações relativas aos produtos;
+b)Preços dos produtos;
+c)Lista de EMPREENDEDORES e clientes da GESTORA;
+d)Negócios e métodos da GESTORA;
+e)Política de Marketing;
+f)Diretrizes contidas no Manual de Procedimentos Torus e Código de Ética Torus.
+Parágrafo único:
+No caso de descumprimento das obrigações de confidencialidade acima estabelecidas, a GESTORA poderá adotar as medidas que julgar necessárias a fim de proteger as Informações Confidenciais, sem o prejuízo de ação de indenização por perdas e danos.
+Cláusula Décima Segunda:
+Quando do término do presente instrumento, ou solicitação da GESTORA , conforme o caso, o EMPREENDEDOR devolverá a GESTORA, no prazo de 10 (dez) dias corridos, toda e qualquer informação confidencial que estiver em sua posse.
+Cláusula Décima Terceira:
+A obrigação de Confidencialidade ora assumida,persistirá pelo período de 05 (cinco) anos a contar da rescisão deste instrumento.
+DA RESPONSABILIDADE DO EMPREENDEDOR
+Cláusula Décima Quarta:
+O EMPREENDEDOR
+é inteiramente responsável e indenizará à GESTORA contra todas as reclamações, ações, perdas e danos e despesas, incluindo, mas não se limitando, a condenações judiciais, custas judiciais, honorários advocatícios, condenações trabalhistas, previdência social, que a GESTORA venha a incorrer e que decorram ou estejam relacionadas com ações, omissões ou violações do EMPREENDEDOR no desenvolvimento das atividades previstas neste instrumento.
+Cláusula Décima Quinta:
+A GESTORA, seus diretores, prepostos, empregados, acionistas e procuradores não serão responsáveis, civil ou criminalmente por qualquer dano causado pelo EMPREENDEDOR no exercício de suas atividades, assumindo ele, neste ato, inteira responsabilidade por suas ações.
+Cláusula Décima Sexta:
+O EMPREENDEDOR se obriga a não fazer qualquer declaração, oral ou escrita, ou de qualquer forma agir de maneira que possa causar dano à imagem ou reputação da GESTORA.
+DA AUTORIZAÇÃO PARA USO DE IMAGEM Cláusula Décima Sétima:
+O EMPREENDEDOR, desde já autoriza expressamente, a GESTORA e suas parceiras ou afiliadas a usar, reproduzir, alterar, publicar e licenciar materiais fotográficos e/ou audiovisuais que representem sua imagem e/ou registrem sua voz, bem como citar opiniões expressas pelo EMPREENDEDOR, história pessoal, na íntegra ou em partes, para serem utilizadas em promoções ou outro meio de publicidade, sem direito a qualquer remuneração ou indenização pelo seu uso.
+DA VIGÊNCIA E RESCISÃO
+Cláusula Décima Oitava:
+O presente instrumento é celebrado por tempo determinado de 01 (um) ano, a contar da data de assinatura eletrônica pelo EMPREENDEDOR, e poderá ser renovado, por simples comunicação entre as partes e mediante o pagamento da nova taxa de adesão de cadastro anual pelo EMPREENDEDOR.
+Cláusula Décima Nona:
+O presente instrumento poderá ser rescindido, por qualquer das partes nas seguintes condições:
+a)Por descumprimento de quaisquer das suas cláusulas;
+b)No caso de insolvência, recuperação judicial ou extrajudicial e falência de qualquer das partes; 
+Parágrafo Primeiro:
+No caso de rescisão ou término do presente contrato não será devida ao EMPREENDEDOR
+qualquer tipo de indenização, taxa de rescisão ou devolução de quaisquer quantias pagas.
+Parágrafo Segundo:
+O EMPREENDEDOR
+poderá desistir do presente instrumento no prazo de 7 (sete) dias a contar da sua assinatura, sendo que os valores pagos a título de taxa de adesão serão devolvidos.
+Parágrafo Terceiro:
+No caso da desistência prevista no Parágrafo Segundo acima, todos os centros de negócios, logins e senhas, recebidos pelo EMPREENDEDOR serão desativados, ficando a critério da GESTORA tomar todas as providências administrativas pertinentes para o cadastro ou não de novos EMPREENDEDORES.
+DAS DISPOSIÇÕES GERAIS
+Cláusula Vigésima:
+O EMPREENDEDOR
+não poderá ceder ou transferir os direitos e obrigações do presente instrumento, sem o prévio e expresso consentimento da GESTORA.
+Cláusula Vigésima Primeira:
+As partes declaram, nesse ato, que tem capacidade jurídica para contratar, bem como as suas responsabilidades pela veracidade das informações prestadas para esse fim, e ainda a sua aceitação de todos os termos nesse instrumento contratados.
+Cláusula Vigésima Segunda:
+O presente instrumento encontra-se em fase de registro, junto ao competente Cartório de Registro de Títulos e Documentos da Comarca do Rio de Janeiro.
+Cláusula Vigésima Terceira:
+O presente contrato incumbe a todas as partes contratantes, por todas as suas Cláusulas, além do Plano de Marketing, Código de Ética Torus e Manual de Procedimentos Torus, instrumentos esses que integram o presente Contrato para todos os fins de direito.
+Cláusula Vigésima Quarta:
+A GESTORA
+poderá alterar, a qualquer tempo, as condições estabelecidas no Plano de Marketing, Código de Ética Torus e Manual de Procedimentos Torus, sendo que as modificações serão publicadas nos materiais impressos, bem como no seu website oficial, com pelo menos 7 (sete) dias de antecedência de sua entrada em vigor.
+DO FORO
+Cláusula Vigésima Quinta: 
+As partes elegem, para solução de qualquer conflito oriundo do presente instrumento, o Foro da Comarca do Rio de Janeiro/RJ, com exclusão de qualquer outro por mais privilegiado que seja.
+E, por estarem, assim justas, contratadas e de comum acordo sobre todas as cláusulas e condições aqui contidas, obrigando-se pelo presente e por seus sucessores, firmam o presente eletronicamente como a livre expressão da autonomia da sua vontade, para todos os efeitos legais.
+Rio de Janeiro, 09 de Julho de 2014. 
+
+
+CONTRATO DE COMPRA E VENDA DE ÁRVORE EM PÉ VENDEDOR: TORUS GRUPO EMPRESARIAL LTDA – ME, com matriz situada na Av. das Américas, 3500 Bloco: 07; Sala 501 Barra da Tijuca – Rio de Janeiro – R.J., CEP 22.640-102, inscrita no CNPJ/MF sob o no.
+20.476.473/0001-77, através de seu representante legal conforme seu estatuto social, doravante designado VENDEDOR, e COMPRADOR: Já qualificado através da ficha de inscrição preenchida no sistema eletrônico “online” do site oficial do VENDEDOR e que faz parte integrante deste contrato ora designado COMPRADOR, ajustam este CONTRATO DE COMPRA E VENDA DE GUANANDI EM PÉ, que se regerá pelas seguintes cláusulas:
+DO OBJETO
+Cláusula Primeira:
+O
+COMPRADOR
+, adquire de boa-fé, por livre e
+espontânea vontade, pelo valor de
+R$ 1.590,00
+(um mil, quinhentos e noventa
+reais) por árvore em pé, da espécie Guanandi, representando para efeito de
+venda, o volume de 0,2 metros cúbicos de madeira pranchada.
+Parágrafo Primeiro
+– Por fim, o
+VENDEDOR
+deixa claro, através desse
+contrato de compra e venda que as árvores vendidas estão localizadas
+na Fazenda São Gabriel, Município de Garça/SP, área total de 218,90
+hectares, título de domínio registrado na matrícula nº 19.663 L.2, C.R.I.
+de Garça/SP.
+DO PREÇO E FORMA DE PAGAMENTO
+Cláusula Segunda:
+Pelo pacote descrito na Cláusula Primeira, pagará o
+COMPRADOR
+para o
+VENDEDOR
+a quantia estabelecida no pedido de
+compra, ora integrante do presente contrato, à vista, no ato da compra pelo
+site, através de emissão de boleto “online”.
+Parágrafo Primeiro:
+O
+COMPRADOR
+poderá imprimir o presente
+contrato através do link disponível no próprio site oficial da vendedora
+para todos os fins de direito e ulteriores formalidades que se fizerem
+necessárias.
+DO CUSTO DO MANEJO
+Cláusula Terceira:
+O
+COMPRADOR
+compromete-se, neste ato a pagar a
+mensalidade no valor correspondente ao custo do manejo em função da
+quantidade de árvores adquiridas, conforme tabela abaixo, serviço esse que
+compreende o uso de tratores para limpeza, podas, adubação, entre outras
+providências necessárias à manutenção do plantio adquirido.
+Quantidade
+de Arvores
+Mensalidade 1º
+a 12º mês
+Mensalidade a partir 13º
+mês
+1 a 5 R$ 99,00
+R$ 99,00
+6 a 8 R$ 169,00
+R$ 99,00
+9 a 14 R$ 299,00
+R$ 99,00
+15 a 29 R$ 499,00
+R$ 99,00
+30 a 59 R$ 899,00
+R$ 99,00
+Acima 60 R$ 1.499,00
+R$ 20,00 cada 10 árvores
+Parágrafo Primeiro
+: O valor correspondente ao serviço acima descrito
+será atualizado anualmente, pelo IGPM/FGV, ou qualquer outro índice
+que venha a substituí-lo.
+Parágrafo Segundo
+: Adquirindo a quantidade de 6 ou mais árvores, o
+valor da mensalidade terá uma redução a partir do 13º mês, conforme
+tabela acima.
+Parágrafo Terceiro:
+O não pagamento do custo do manejo mensal pelo
+COMPRADOR
+, por um período de 3 meses consecutivos, ensejará na
+perda do seu direito a aquisição da quantidade de árvores escolhida,
+bem como de todos os valores pagos nos meses anteriores a esse título,
+não havendo falar em reembolso ou restituição dos mesmos.
+DA VIGÊNCIA E PRAZO DE ENTREGA
+Cláusula Quarta:
+A vigência deste contrato é de 11 (onze) anos, iniciando-se a
+partir da data da sua assinatura eletrônica, e quando do seu término, o
+COMPRADOR
+poderá optar pelas seguintes condições de entrega:
+a) A metragem em metros cúbicos de madeira pranchada, descrita neste
+contrato, adquiridas através desse instrumento;
+b) Revender ao mercado as árvores em pé, ou seu equivalente em metros
+cúbicos descrito neste contrato, de madeira pranchada, pelo preço de mercado
+à época da entrega;
+Parágrafo Primeiro:
+O
+COMPRADOR
+deverá apresentar, em até 180
+(cento e oitenta) dias de antecedência, a sua opção, para que o
+VENDEDOR
+tome as devidas providências, sob pena de ter o seu
+contrato automaticamente prorrogado pelo período de mais 180 (cento e
+oitenta) dias.
+Parágrafo Segundo:
+O prazo acima estabelecido poderá ser prorrogado
+por iniciativa das partes, sendo que a prorrogação obedecerá às
+seguintes condições:
+a) Apresentação de justificativa expressa pela parte interessada à
+outra parte;
+b) Prazo de no mínimo 180 (cento e oitenta) dias antes do termo
+ajustado, para apresentação da justificativa expressa.
+DAS OBRIGAÇÕES DO COMPRADOR
+Cláusula Quinta:
+O
+COMPRADOR
+compromete-se, neste ato, sem prejuízo
+das demais obrigações assumidas nesse instrumento, a cumprir com as
+obrigações abaixo relacionadas:
+a)
+Pagar o preço conforme pactuado;
+b)
+Fiscalizar todo o processo de cuidado das árvores, bem como participar
+ativamente de todas as atividades relacionadas às mesmas, sempre que pelo
+VENDEDOR
+for solicitado;
+c)
+Pagar os tributos (impostos, taxas e/ou contribuições para fiscais) que
+vierem a incidir sobre a exploração e/ou venda das árvores;
+d)
+Manter seus dados cadastrais sempre atualizados.
+DAS OBRIGAÇÕES DO VENDEDOR
+Cláusula Sexta:
+O
+VENDEDOR
+compromete-se, neste ato, sem prejuízo das
+demais obrigações assumidas nesse instrumento, a cumprir com as obrigações
+abaixo relacionadas:
+a) Fiscalizar, periodicamente, junto a Fazenda São Gabriel, Município de
+Garça/SP, área total de 218,90 hectares, título de domínio registrado na
+matrícula nº 19.663 L.2, C.R.I. de Garça/SP, as condições de limpeza e tráfego
+de todos os aceiros mantidas pelo produtor rural responsável, bem como a
+individualização e identificação da área onde estão plantadas as árvores objeto
+deste contrato, tomando, SE necessário for, todas as medidas administrativas
+cabíveis e pertinentes a espécie junto ao produtor rural à fim de resguardo de
+direitos de todas as partes envolvidas, seja de forma direta ou indireta, para o
+bom e fiel cumprimento deste contrato;
+b)
+Revender toda a produção ao mercado, pelo preço de mercado à época que
+ocorrer.
+DA RESCISÃO
+Cláusula Sétima:
+As Partes poderão imediatamente rescindir o presente
+Contrato, mediante simples comunicação por escrito da outra parte, nas
+seguintes hipóteses:
+a)
+Pedido de falência e/ou concordata de qualquer das Partes, e
+b)
+Descumprimento de qualquer cláusula ou obrigação estabelecida neste
+Contrato, não sanada no prazo máximo de 30 (trinta) dias da notificação para
+cumprimento.
+Parágrafo Primeiro:
+Com a rescisão, fica desfeita a venda, retornando
+as árvores para o
+VENDEDOR
+, que restituirá ao
+COMPRADOR
+o preço
+efetivamente pago, apenas corrigido monetariamente pelo IGPM/FGV,
+quando do corte definitivo das árvores pelo
+VENDEDOR
+, no termo
+ajustado, descontados eventuais débitos e/ou penalidades.
+Parágrafo Segundo:
+Havendo crédito e débito entre as partes, as
+obrigações extinguem-se, até onde se compensarem.
+DA MULTA PENAL
+Cláusula Oitava:
+A parte que descumprir, qualquer das cláusulas previstas
+neste instrumento, será aplicada a multa de 10% (dez por cento) sobre o valor
+do contrato, em favor da parte inocente, sem prejuízo das perdas e danos e/ou
+lucros cessantes.
+DAS DISPOSIÇÕES GERAIS
+Cláusula Nona:
+Enquanto vigente este contrato, o
+COMPRADOR
+poderá ter
+livre acesso à área onde estão plantadas as árvores objeto deste contrato,
+desde que informe e encaminhe expressamente ao setor responsável do
+VENDEDOR
+sua intenção de visitação ao local e com antecedência mínima de
+30 dias, para que o mesmo possa agendar dia e horário disponível junto ao
+produtor rural viabilizando, assim, o itinerário adequado de todas as partes.
+Cláusula Décima:
+Cada parte será responsável por qualquer dano causado a
+terceiros, decorrente de seus atos, de seus empregados e/ou prepostos,
+obrigando-se à reembolsar a outra parte por todo e qualquer prejuízo que a
+mesma vier a sofrer.
+Cláusula Décima Primeira:
+O presente contrato é feito com caráter pessoal,
+pelo que não poderá ser cedido por qualquer das partes sem expressa
+anuência da outra.
+Cláusula Décima Segunda:
+Em caso de cessão ou transferência dos direitos
+sobre o objeto deste contrato a parte cedente deverá pagar ao
+VENDEDOR
+o
+equivalente a 6% (seis por cento) do valor do contrato atualizado, a título de
+taxa de transferência.
+Cláusula Décima Terceira:
+As condições, obrigações e direitos inseridos no
+presente contrato abrangem todo e qualquer termo aditivo que venha a ser
+formulado pelas partes, ficando estabelecido que não serão levadas em conta
+quaisquer promessas, tratos ou negociações verbais, que não tenham sido
+firmados expressamente, mediante a anuência plena e escrita das partes.
+Cláusula Décima Quarta:
+O presente contrato, além de ensejar o
+cumprimento específico de obrigações de fazer e não fazer, reveste-se dos
+requisitos próprios à espécie tratada no inciso II, do artigo 585, do Código de
+Processo Civil, tratando-se, portanto, de Título Executivo Extrajudicial.
+Cláusula Décima Quinta:
+As partes elegem, para solução de qualquer conflito
+oriundo do presente instrumento, o Foro da Comarca do Rio de Janeiro - RJ,
+com exclusão de qualquer outro por mais privilegiado que seja.
+E, por estarem, assim justas, contratadas e de comum acordo sobre todas as
+cláusulas e condições aqui contidas, obrigando-se pelo presente e por seus
+sucessores, firmam o presente eletronicamente como a livre expressão da
+autonomia da sua vontade, para todos os efeitos legais.
+Rio de Janeiro, 09 de Julho de 2014. 
+</textarea>
+					      </div>
+					    </div>	
+					    
+					    
+                    
+                    
+                    
+                    
+	
+	 
+                </div>
+                <!-- END TAB4 CONTAINER -->
+            </div>
+            <!-- BEGIN FORM BUTTONS ACTION CONTROLS -->
+            <div class="form-actions" id="action-container">
+                <div class="offset2">
+                    <button name="previous" class="btn button-previous disabled" type="button"><i class="icon-angle-left"></i> Voltar</button>
+                    <button name="next" class="btn button-next" type="button">Continuar <i class="icon-angle-right"></i></button>
+                    <button name="finish" class="btn button-finish"  onclick="return bottomReached('textarea1')" style="display: none;">Cadastrar <i class="icon-ok"></i></button>
+                </div>
+            </div>
+            <!-- END FORM BUTTONS ACTION CONTROLS -->
+        </form>
+        <!-- END FORM WIZARD  -->
+        <?php }?>
+    </div>
+
+
+        
+        <!-- BEGIN JAVASCRIPT CODES -->
+        <!-- BEGIN GENERAL JAVASCRIPT CODE -->
+        
+    </script>
+    <script>window.jQuery || document.write('<script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery/jquery.min.js"><\/script>')</script>
+            <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.ui/jquery-ui-1.10.1.custom.min.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.ui.touch-punch/jquery.ui.touch-punch.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/twitter-bootstrap/bootstrap.js"></script>
+
+            <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.cookie/jquery.cookie.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.simplecolorpicker/jquery.simplecolorpicker.js"></script>
+
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.uipro/uipro.min.js"></script>
+
+    
+
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.livefilter/jquery.liveFilter.js"></script>
+
+    
+
+        <script src="http://<?php echo $dados['host'];?>/core/View/assets/js/extents.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/js/app.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/js/demo-settings.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/js/sidebar.js"></script>
+    
+    
+
+    <script>
+      /*<![CDATA[*/
+      $(function() {
+        App.init();
+        DemoSettings.init({
+          urlThemes: 'http://<?php echo $dados['host'];?>/core/View/assets/css/themes/social.theme-'
+        });
+        SideBar.init({
+          shortenOnClickOutside: false
+        });
+      });
+      /*]]>*/
+    </script>
+    <!-- END GENERAL JAVASCRIPT CODE -->
+
+    <!-- BEGIN JAVASCRIPT CODES FOR THE CURRENT PAGE -->
+        <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.validation/jquery.validate.js"></script>
+        <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery.maskedinput/jquery.maskedinput.min.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/bootstrap.wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/bootstrap.fuelux/lib/require.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/bootstrap.fuelux/loader.min.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/bootstrap.fuelux/wizard.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/assets/js/form-stuff.wizard.js"></script>
+    <script src="http://<?php echo $dados['host'];?>/core/View/js/cadastrar.js"></script>
+    <script>
+      $(function() {
+        FormWizard.init();
+      });
+    </script>
+    <!-- END JAVASCRIPT CODES FOR THE CURRENT PAGE -->
+        <!-- END JAVASCRIPT CODES -->
+ 
+
+ 
+
+ 
+ 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://<?php echo $dados['host'];?>/core/View/assets/plugins/jquery/jquery.min.js"><\/script>')</script>
+<script src="http://<?php echo $dados['host'];?>/core/View/assets/js/login.js"></script>
+<script>
+        $(function() {
+            Login.init()
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+<?php $array_global = array('usuario' => array( 'usu_datanasc'=>'//', ));

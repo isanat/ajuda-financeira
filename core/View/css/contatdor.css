@@ -1,0 +1,76 @@
+#contador{
+	width:700px;
+	margin:0 auto;
+}
+
+#clock .counter-box {
+	display: block;
+	width: 140px;
+	text-align: center;
+	overflow: hidden;
+	text-align:center;
+	float:left;
+	position: relative;
+}
+
+#clock .number {
+	font-size: 70px;
+	text-align: center;
+	font-family: 'Monteserrat', sans-serif;
+	color:#224569;
+	font-weight: 700;
+	line-height: 1;
+}
+
+#clock span {
+	display: block;
+	font-size: 15px;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;	
+	color:#224569;
+	position: relative;
+	overflow: hidden;
+}
+
+
+
+
+#contador_relogio{
+	width:700px;
+	margin:0 auto;
+}
+
+
+#relogio .counter-box {
+	display: block;
+	width: 140px;
+	text-align: center;
+	overflow: hidden;
+	text-align:center;
+	float:left;
+	position: relative;
+}
+
+#relogio .number {
+	font-size: 70px;
+	text-align: center;
+	font-family: 'Monteserrat', sans-serif;
+	color:#224569;
+	font-weight: 700;
+	line-height: 1;
+}
+
+#relogio span {
+	display: block;
+	font-size: 15px;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;	
+	color:#224569;
+	position: relative;
+	overflow: hidden;
+}
+
+
+
